@@ -1,36 +1,40 @@
-# Use Node official image
+# --- Build stage ---
 FROM node:20-alpine AS builder
 
 # Install dos2unix to fix CRLF -> LF
 RUN apk add --no-cache dos2unix
 
-# Set workdir
 WORKDIR /app
 
-# Copy package files first for better caching
+# Copy package files first for caching
 COPY package*.json ./
 
-# Install deps
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the code
+# Copy source code
 COPY . .
 
-# Convert Windows CRLF line endings to LF in all files
+# Normalize line endings
 RUN find . -type f -exec dos2unix {} +
 
 # Build the app
 RUN npm run build
+
 
 # --- Production stage ---
 FROM node:20-alpine AS production
 
 WORKDIR /app
 
+# Copy only the built assets
 COPY --from=builder /app/dist ./dist
-COPY package*.json ./
 
-# Install only production deps
-RUN npm install --omit=dev
+# Install a lightweight static server
+RUN npm install -g serve
 
-CMD ["npm", "run", "preview"]
+# Expose app port
+EXPOSE 3000
+
+# Start the app
+CMD ["serve", "-s", "dist", "-l", "3000"]
