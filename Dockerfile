@@ -13,8 +13,8 @@ RUN npm install --production
 # Copy the rest of the source code
 COPY . .
 
-# If you have a build step, uncomment this line:
-# RUN npm run build
+# Build the production assets
+RUN npm run build
 
 # Expose the port your app listens on (adjust if different)
 EXPOSE 3000
