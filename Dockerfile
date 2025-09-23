@@ -1,26 +1,26 @@
-# Use official Node.js 18 runtime (alpine variant for smaller image)
 FROM node:18-alpine
 
-# Set working directory inside container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first for caching
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies (production only)
-RUN npm install --production
+# Install all dependencies (including dev)
+RUN npm install
 
-# Copy the rest of the source code
+# Copy rest of the source code
 COPY . .
 
-# Build the production assets
+# Build the project
 RUN npm run build
 
-# Expose the port your app listens on (adjust if different)
+# Remove dev dependencies to slim image (optional)
+RUN npm prune --production
+
+# Expose port
 EXPOSE 3000
 
-# Set environment variable (optional)
 ENV NODE_ENV=production
 
-# Start the app
+# Start your app (adjust if your app serves from build output)
 CMD ["npm", "start"]
