@@ -22,4 +22,4 @@ EXPOSE 3000
 
 
 # Start your app (adjust if your app serves from build output)
-CMD ["npm", "start"]
+CMD ["npm","run","start"]
