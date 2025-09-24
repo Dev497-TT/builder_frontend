@@ -15,7 +15,7 @@ export const authApi = api.injectEndpoints({
     // Get current user profile
     getProfile: build.query<AuthResponse['data']['userInfo'], void>({
       query: () => ({
-        url: '/profile',
+        url: '/java/profile',          // ✅ Java backend
         method: 'GET',
       }),
       providesTags: ['Auth'],
@@ -24,7 +24,7 @@ export const authApi = api.injectEndpoints({
     // Sign up
     signUp: build.mutation<AuthResponse, SignUpRequest>({
       query: (data) => ({
-        url: '/signup',
+        url: '/java/signup',          // ✅ Java backend
         method: 'POST',
         body: data,
       }),
@@ -34,7 +34,7 @@ export const authApi = api.injectEndpoints({
     // Sign in
     signIn: build.mutation<AuthResponse, SignInRequest>({
       query: (data) => ({
-        url: '/unsecure/builderlogin',
+        url: '/java/unsecure/builderlogin',   // ✅ Java backend
         method: 'POST',
         body: data,
       }),
@@ -44,7 +44,7 @@ export const authApi = api.injectEndpoints({
     // Sign out
     signOut: build.mutation<void, void>({
       query: () => ({
-        url: '/signout',
+        url: '/java/signout',          // ✅ Java backend
         method: 'POST',
       }),
       invalidatesTags: ['Auth'],
@@ -53,7 +53,7 @@ export const authApi = api.injectEndpoints({
     // Reset password with token
     resetPasswordWithToken: build.mutation<{ message: string }, ResetPasswordWithTokenRequest>({
       query: (data) => ({
-        url: '/unsecure/resetpassword',
+        url: '/java/unsecure/resetpassword',   // ✅ Java backend
         method: 'POST',
         body: data,
       }),
@@ -62,7 +62,7 @@ export const authApi = api.injectEndpoints({
     // Update password
     updatePassword: build.mutation<{ message: string }, UpdatePasswordRequest>({
       query: (data) => ({
-        url: '/update-password',
+        url: '/java/update-password',  // ✅ Java backend
         method: 'PATCH',
         body: data,
       }),
@@ -71,7 +71,7 @@ export const authApi = api.injectEndpoints({
     // Verify email
     verifyEmail: build.mutation<{ message: string }, { token: string }>({
       query: (data) => ({
-        url: '/verify-email',
+        url: '/java/verify-email',     // ✅ Java backend
         method: 'POST',
         body: data,
       }),
@@ -80,7 +80,7 @@ export const authApi = api.injectEndpoints({
     // Resend verification
     resendVerification: build.mutation<{ message: string }, { email: string }>({
       query: (data) => ({
-        url: '/resend-verification',
+        url: '/java/resend-verification',   // ✅ Java backend
         method: 'POST',
         body: data,
       }),
@@ -89,7 +89,7 @@ export const authApi = api.injectEndpoints({
     // Send verify mail
     sendVerifyMail: build.mutation<{ message: string }, SendVerifyMailRequest>({
       query: (data) => ({
-        url: '/unsecure/verify/mail',
+        url: '/java/unsecure/verify/mail',   // ✅ Java backend
         method: 'GET',
         params: { email: data.email },
       }),
@@ -98,7 +98,7 @@ export const authApi = api.injectEndpoints({
     // Set password for user
     setPasswordForUser: build.mutation<{ message: string }, SetPasswordForUserRequest>({
       query: (data) => ({
-        url: '/unsecure/user/setpwd',
+        url: '/java/unsecure/user/setpwd',   // ✅ Java backend
         method: 'POST',
         body: data,
       }),
@@ -107,7 +107,7 @@ export const authApi = api.injectEndpoints({
     // Update profile
     updateProfile: build.mutation<AuthResponse['data']['userInfo'], Partial<AuthResponse['data']['userInfo']>>({
       query: (data) => ({
-        url: '/profile',
+        url: '/java/profile',           // ✅ Java backend
         method: 'PATCH',
         body: data,
       }),
