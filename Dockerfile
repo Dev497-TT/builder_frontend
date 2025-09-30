@@ -1,9 +1,6 @@
 # --- Build stage ---
 FROM node:20-alpine AS builder
 
-# Install dos2unix to fix CRLF -> LF
-RUN apk add --no-cache dos2unix
-
 WORKDIR /app
 
 # Copy package files first for caching
@@ -14,9 +11,6 @@ RUN npm install
 
 # Copy source code
 COPY . .
-
-# Normalize line endings
-RUN find . -type f -exec dos2unix {} +
 
 # === Pass API base URL ===
 ARG VITE_API_BASE_URL=/api
