@@ -18,7 +18,11 @@ COPY . .
 # Normalize line endings
 RUN find . -type f -exec dos2unix {} +
 
-# Build the app
+# === Pass API base URL ===
+ARG VITE_API_BASE_URL=/api
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
+# Build the app with the correct API base URL
 RUN npm run build
 
 
